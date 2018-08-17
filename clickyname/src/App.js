@@ -10,7 +10,7 @@ import Wrapper from './components/Wrapper/Wrapper'
 
 function shuffleGypsies(array) {
   for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
@@ -32,31 +32,27 @@ handleClick = id => {
 if (this.state.clicked.indexOf(id) === -1) {
   console.log(id)
   this.handleIncrement();
-  this.setState({clicks: this.state.clicks.concat(id)
-  });
-}   
-else {
+  this.setState({clicked: this.state.clicked.concat(id) });
+}  else {
   this.handleReset();
   }
-}
+};
 
 
 handleIncrement = () => {
   let updatedScore = this.state.score + 1; 
   this.setState({
     score: updatedScore,
-    theAnswer: "Correct"
+    theAnswer: ""
   });
-  this.handleShuffle();
     if(updatedScore >= this.state.topScore) {
-      this.setState({
-        topScore: updatedScore
-      })
+      this.setState({ topScore: updatedScore });
     }
-     if (updatedScore === 12) {
-      this.setState({ theAnswer: "You win!"})
+     else if (updatedScore === 12) {
+      this.setState({ theAnswer: "You win!"});
     }
-}
+    this.handleShuffle();
+};
 
 handleReset = () => {
   this.setState({
